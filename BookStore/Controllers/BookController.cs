@@ -1,5 +1,8 @@
 ﻿using BookStore.BookOperations.CreateBook;
+using BookStore.BookOperations.DeleteBook;
+using BookStore.BookOperations.GetBookDetail;
 using BookStore.BookOperations.GetBooks;
+using BookStore.BookOperations.UpdateBook;
 using BookStore.DBOperations;
 using BookStore.Entity;
 using Microsoft.AspNetCore.Http;
@@ -29,15 +32,24 @@ namespace BookStore.Controllers
             GetBooksQuery query = new GetBooksQuery(_context);
             var result = query.Handle();
             return Ok(result);
-            //var bookList = _context.Books.OrderBy(b => b.Id).ToList();
-            //return bookList;
         }
 
         [HttpGet("{id}")]
-        public Book GetById(int id)
+        public IActionResult GetById(int id)
         {
-            var book = _context.Books.Where(b => b.Id == id).SingleOrDefault();
-            return book;
+            BookDetailViewModel result;
+            try
+            {
+                GetBookDetailQuery getBookDetailQuery = new GetBookDetailQuery(_context);
+                getBookDetailQuery.BookId = id;
+                result = getBookDetailQuery.Handle();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+
+            return Ok(result);
         }
 
         //[HttpGet]
@@ -50,9 +62,9 @@ namespace BookStore.Controllers
         [HttpPost]
         public IActionResult AddBook([FromBody] CreateBookModel newBook)
         {
-            CreateBookCommand createBookCommand = new CreateBookCommand(_context);
             try
             {
+                CreateBookCommand createBookCommand = new CreateBookCommand(_context);
                 createBookCommand.Model = newBook;
                 createBookCommand.Handle();
             }
@@ -65,32 +77,35 @@ namespace BookStore.Controllers
         }
 
         [HttpPut("{id}")]
-        public IActionResult UpdateBook(int id, Book updatedBook)
+        public IActionResult UpdateBook(int id, UpdateBookModel updatedBook)
         {
-            var book = _context.Books.SingleOrDefault(b => b.Id == id);
-            if (book is null)
+            try
             {
-                return BadRequest();
+                UpdateBookCommand updateBookCommand = new UpdateBookCommand(_context);
+                updateBookCommand.BookId = id;
+                updateBookCommand.Model = updatedBook;
+                updateBookCommand.Handle();
             }
-
-            book.GenreId = updatedBook.GenreId != default ? updatedBook.GenreId : book.GenreId;
-            book.PageCount = updatedBook.PageCount != default ? updatedBook.PageCount : book.PageCount;
-            book.PublishDate = updatedBook.PublishDate != default ? updatedBook.PublishDate : book.PublishDate;
-            book.Title = updatedBook.Title != default ? updatedBook.Title : book.Title;
-            _context.SaveChanges();
-            return Ok();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            return Ok("Guncelleme Basarili");
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
         {
-            var book = _context.Books.SingleOrDefault(b => b.Id == id);
-            if (book is null)
+            try
             {
-                return BadRequest("kitap bulunamadı");
+                DeleteBookCommand deleteBookCommand = new DeleteBookCommand(_context);
+                deleteBookCommand.BookId = id;
+                deleteBookCommand.Handle();
             }
-            _context.Books.Remove(book);
-            _context.SaveChanges();
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
             return Ok("kitap silindi");
         }
 
