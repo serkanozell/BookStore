@@ -1,4 +1,5 @@
-﻿using BookStore.Common;
+﻿using AutoMapper;
+using BookStore.Common;
 using BookStore.DBOperations;
 using System;
 using System.Collections.Generic;
@@ -11,25 +12,22 @@ namespace BookStore.BookOperations.GetBookDetail
     {
         public int BookId { get; set; }
         private readonly BookStoreDbContext _context;
+        private readonly IMapper _mapper;
 
-        public GetBookDetailQuery(BookStoreDbContext context)
+        public GetBookDetailQuery(BookStoreDbContext context, IMapper mapper)
         {
             _context = context;
+            _mapper = mapper;
         }
 
         public BookDetailViewModel Handle()
         {
-            BookDetailViewModel vM = new BookDetailViewModel();
             var book = _context.Books.Where(b => b.Id == BookId).SingleOrDefault();
             if (book is null)
             {
                 throw new InvalidOperationException("Kitap Bulunamadı");
             }
-
-            vM.Title = book.Title;
-            vM.Genre = ((GenreEnum)book.GenreId).ToString();
-            vM.PageCount = book.PageCount;
-            vM.PublishDate = book.PublishDate.Date.ToString("dd/MM/yyyy");
+            BookDetailViewModel vM = _mapper.Map<BookDetailViewModel>(book);
 
             return vM;
         }
