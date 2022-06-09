@@ -43,20 +43,15 @@ namespace BookStore.Controllers
         public IActionResult GetById(int id)
         {
             BookDetailViewModel result;
-            try
-            {
-                GetBookDetailQuery getBookDetailQuery = new GetBookDetailQuery(_context, _mapper);
-                getBookDetailQuery.BookId = id;
 
-                GetBookDetailQueryValidator validation = new GetBookDetailQueryValidator();
-                validation.ValidateAndThrow(getBookDetailQuery);
+            GetBookDetailQuery getBookDetailQuery = new GetBookDetailQuery(_context, _mapper);
+            getBookDetailQuery.BookId = id;
 
-                result = getBookDetailQuery.Handle();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            GetBookDetailQueryValidator validation = new GetBookDetailQueryValidator();
+            validation.ValidateAndThrow(getBookDetailQuery);
+
+            result = getBookDetailQuery.Handle();
+
 
             return Ok(result);
         }
@@ -71,60 +66,44 @@ namespace BookStore.Controllers
         [HttpPost]
         public IActionResult AddBook([FromBody] CreateBookModel newBook)
         {
-            try
-            {
-                CreateBookCommand createBookCommand = new CreateBookCommand(_context, _mapper);
-                createBookCommand.Model = newBook;
 
-                CreateBookCommandValidator validation = new CreateBookCommandValidator();
-                validation.ValidateAndThrow(createBookCommand);
+            CreateBookCommand createBookCommand = new CreateBookCommand(_context, _mapper);
+            createBookCommand.Model = newBook;
 
-                createBookCommand.Handle();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            CreateBookCommandValidator validation = new CreateBookCommandValidator();
+            validation.ValidateAndThrow(createBookCommand);
+
+            createBookCommand.Handle();
+
             return Ok("Ekleme Başarılı");
         }
 
         [HttpPut("{id}")]
         public IActionResult UpdateBook(int id, [FromBody] UpdateBookModel updatedBook)
         {
-            try
-            {
-                UpdateBookCommand updateBookCommand = new UpdateBookCommand(_context);
-                updateBookCommand.BookId = id;
-                updateBookCommand.Model = updatedBook;
 
-                UpdateBookCommandValidator validation = new UpdateBookCommandValidator();
-                validation.ValidateAndThrow(updateBookCommand);
+            UpdateBookCommand updateBookCommand = new UpdateBookCommand(_context);
+            updateBookCommand.BookId = id;
+            updateBookCommand.Model = updatedBook;
 
-                updateBookCommand.Handle();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            UpdateBookCommandValidator validation = new UpdateBookCommandValidator();
+            validation.ValidateAndThrow(updateBookCommand);
+
+            updateBookCommand.Handle();
+
             return Ok("Guncelleme Basarili");
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteBook(int id)
         {
-            try
-            {
-                DeleteBookCommand deleteBookCommand = new DeleteBookCommand(_context);
-                deleteBookCommand.BookId = id;
-                DeleteBookCommandValidator validation = new DeleteBookCommandValidator();
-                validation.ValidateAndThrow(deleteBookCommand);
+            DeleteBookCommand deleteBookCommand = new DeleteBookCommand(_context);
+            deleteBookCommand.BookId = id;
+            DeleteBookCommandValidator validation = new DeleteBookCommandValidator();
+            validation.ValidateAndThrow(deleteBookCommand);
 
-                deleteBookCommand.Handle();
-            }
-            catch (Exception ex)
-            {
-                return BadRequest(ex.Message);
-            }
+            deleteBookCommand.Handle();
+
             return Ok("kitap silindi");
         }
 
