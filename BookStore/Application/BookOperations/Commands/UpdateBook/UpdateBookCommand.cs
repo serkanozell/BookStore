@@ -30,6 +30,7 @@ namespace BookStore.Application.BookOperations.UpdateBook
 
             book.Title = Model.Title != default ? Model.Title : book.Title;
             book.GenreId = Model.GenreId != default ? Model.GenreId : book.GenreId;
+            book.AuthorId = Model.AuthorId != default ? Model.AuthorId : book.AuthorId;
 
             _context.Books.Update(book);
             _context.SaveChanges();
@@ -42,5 +43,6 @@ namespace BookStore.Application.BookOperations.UpdateBook
     {
         public string Title { get; set; }
         public int GenreId { get; set; }
+        public int AuthorId { get; set; }
     }
 }

@@ -11,7 +11,6 @@ namespace BookStore.Application.BookOperations.GetBookDetail
         public GetBookDetailQueryValidator()
         {
             RuleFor(command => command.BookId).GreaterThan(0).WithMessage("Book id has to bigger than 0!!");
-            RuleFor(command => command.BookId).LessThan(4).WithMessage("Book id has to less than 4!!");
         }
     }
 }
