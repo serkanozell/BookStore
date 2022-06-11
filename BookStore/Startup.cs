@@ -1,5 +1,7 @@
 using BookStore.DBOperations;
 using BookStore.Middlewares;
+using BookStore.Services;
+using BookStore.Services.Interfaces;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -40,6 +42,7 @@ namespace BookStore
             services.AddDbContext<BookStoreDbContext>(options =>
             options.UseInMemoryDatabase(databaseName: "BookStoreDb"));
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
+            services.AddSingleton<ILoggerService, DatabaseLogger>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

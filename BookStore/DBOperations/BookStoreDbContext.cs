@@ -1,4 +1,4 @@
-﻿using BookStore.Entity;
+﻿using BookStore.Entities;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -14,5 +14,6 @@ namespace BookStore.DBOperations
         }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<Genre> Genres { get; set; }
     }
 }

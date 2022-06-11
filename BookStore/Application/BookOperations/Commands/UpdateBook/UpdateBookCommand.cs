@@ -1,12 +1,12 @@
 ﻿using BookStore.DBOperations;
-using BookStore.Entity;
+using BookStore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using static BookStore.BookOperations.CreateBook.CreateBookCommand;
+using static BookStore.Application.BookOperations.Commands.CreateBook.CreateBookCommand;
 
-namespace BookStore.BookOperations.UpdateBook
+namespace BookStore.Application.BookOperations.UpdateBook
 {
     public class UpdateBookCommand
     {

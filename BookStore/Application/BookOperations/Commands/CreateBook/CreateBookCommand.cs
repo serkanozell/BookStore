@@ -1,12 +1,12 @@
 ﻿using AutoMapper;
 using BookStore.DBOperations;
-using BookStore.Entity;
+using BookStore.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BookStore.BookOperations.CreateBook
+namespace BookStore.Application.BookOperations.Commands.CreateBook
 {
     public class CreateBookCommand
     {
@@ -29,11 +29,6 @@ namespace BookStore.BookOperations.CreateBook
             }
 
             book = _mapper.Map<Book>(Model);
-            //book = new Book();
-            //book.Title = Model.Title;
-            //book.PublishDate = Model.PublishDate;
-            //book.PageCount = Model.PageCount;
-            //book.GenreId = Model.GenreId;
 
             _context.Books.Add(book);
             _context.SaveChanges();
