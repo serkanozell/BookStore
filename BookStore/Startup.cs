@@ -41,8 +41,10 @@ namespace BookStore
 
             services.AddDbContext<BookStoreDbContext>(options =>
             options.UseInMemoryDatabase(databaseName: "BookStoreDb"));
+            services.AddScoped<IBookStoreDbContext>(provider => provider.GetService<BookStoreDbContext>());
             services.AddAutoMapper(Assembly.GetExecutingAssembly());
             services.AddSingleton<ILoggerService, DatabaseLogger>();
+            //services.AddScoped<IBookStoreDbContext, BookStoreDbContext>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

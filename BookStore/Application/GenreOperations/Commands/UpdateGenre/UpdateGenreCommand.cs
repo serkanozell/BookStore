@@ -10,9 +10,9 @@ namespace BookStore.Application.GenreOperations.Commands.UpdateGenre
     {
         public int GenreId { get; set; }
         public UpdateGenreModel Model { get; set; }
-        private readonly BookStoreDbContext _context;
+        private readonly IBookStoreDbContext _context;
 
-        public UpdateGenreCommand(BookStoreDbContext context)
+        public UpdateGenreCommand(IBookStoreDbContext context)
         {
             _context = context;
         }
@@ -33,6 +33,7 @@ namespace BookStore.Application.GenreOperations.Commands.UpdateGenre
             genre.GenreName = string.IsNullOrEmpty(Model.GenreName.Trim()) ? genre.GenreName : Model.GenreName;
             //genre.GenreName = Model.GenreName != default ? Model.GenreName : genre.GenreName; //farklı yazılış türü
             genre.IsActive = Model.IsActive;
+            _context.Genres.Update(genre);
             _context.SaveChanges();
         }
     }

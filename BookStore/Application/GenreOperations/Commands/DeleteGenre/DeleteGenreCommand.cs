@@ -9,9 +9,9 @@ namespace BookStore.Application.GenreOperations.Commands.DeleteGenre
     public class DeleteGenreCommand
     {
         public int GenreId { get; set; }
-        private readonly BookStoreDbContext _context;
+        private readonly IBookStoreDbContext _context;
 
-        public DeleteGenreCommand(BookStoreDbContext context)
+        public DeleteGenreCommand(IBookStoreDbContext context)
         {
             _context = context;
         }
@@ -19,12 +19,13 @@ namespace BookStore.Application.GenreOperations.Commands.DeleteGenre
         public void Handle()
         {
             var genre = _context.Genres.SingleOrDefault(g => g.Id == GenreId);
-            if (genre is not null)
+            if (genre is null)
             {
                 throw new InvalidOperationException("Böyle bir kitap türü bulunmamaktadır!!");
             }
 
             _context.Genres.Remove(genre);
+            _context.SaveChanges();
         }
     }
 }
