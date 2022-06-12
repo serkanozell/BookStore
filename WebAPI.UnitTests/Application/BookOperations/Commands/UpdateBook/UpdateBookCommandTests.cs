@@ -38,6 +38,7 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.UpdateBook
             command.Model = updateBookModel;
 
             //act
+
             FluentActions.Invoking(() => command.Handle())
                          .Invoke();
 

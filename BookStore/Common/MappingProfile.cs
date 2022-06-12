@@ -4,6 +4,7 @@ using BookStore.Application.AuthorOperations.Queries.GetAuthorDetail;
 using BookStore.Application.AuthorOperations.Queries.GetAuthors;
 using BookStore.Application.BookOperations.GetBookDetail;
 using BookStore.Application.BookOperations.GetBooks;
+using BookStore.Application.GenreOperations.Commands.CreateGenre;
 using BookStore.Application.GenreOperations.Commands.UpdateGenre;
 using BookStore.Application.GenreOperations.Queries.GetGenreDetail;
 using BookStore.Application.GenreOperations.Queries.GetGenres;
@@ -34,6 +35,7 @@ namespace BookStore.Common
                 dest => dest.AuthorLastName,
                 opt => opt.MapFrom(src => src.Author.LastName));
 
+            CreateMap<CreateGenreModel, Genre>();
             CreateMap<Genre, GenresViewModel>();
             CreateMap<Genre, GenreDetailViewModel>();
 

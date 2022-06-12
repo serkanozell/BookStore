@@ -27,4 +27,8 @@
     <ProjectReference Include="..\BookStore\BookStore.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Application\GenreOperations\Queries\" />
+  </ItemGroup>
+
 </Project>

@@ -26,7 +26,7 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.CreateBook
         [InlineData(" ", 100, 1)]
         public void WhenInvalidInputsAreGiven_Validator_ShouldBeReturnErrors(string title, int pageCount, int genreId)
         {
-            //arrance
+            //arrange
 
             CreateBookCommand createBookCommand = new CreateBookCommand(null, null);
             createBookCommand.Model = new CreateBookModel()

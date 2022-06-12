@@ -69,10 +69,12 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.CreateBook
             command.Model = createBookModel;
 
             //act
+
             FluentActions.Invoking(() => command.Handle())
                          .Invoke();
 
             //assert
+
             var book = _context.Books.SingleOrDefault(b => b.Title == createBookModel.Title);
             book.Should().NotBeNull();
             book.PageCount.Should().Be(createBookModel.PageCount);
