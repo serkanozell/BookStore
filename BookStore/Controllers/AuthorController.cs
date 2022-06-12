@@ -69,7 +69,7 @@ namespace BookStore.Controllers
         [HttpPut("{id}")]
         public IActionResult UpdateAuthor(int id, [FromBody] UpdateAuthorModel updateAuthor)
         {
-            UpdateAuthorCommand updateAuthorCommand = new UpdateAuthorCommand(_context, _mapper);
+            UpdateAuthorCommand updateAuthorCommand = new UpdateAuthorCommand(_context);
             updateAuthorCommand.AuthorId = id;
             updateAuthorCommand.Model = updateAuthor;
 

@@ -23,11 +23,11 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.DeleteBook
         [Fact]
         public void WhenAlreadyDeletedBookIdIsGiven_InvalidOperationException_ShouldBeReturn()
         {
-
-            //var book = _context.Books.SingleOrDefault(b => b.Id == 4);
-
+            //arrange
 
             DeleteBookCommand command = new DeleteBookCommand(_context);
+
+            //act & assert
 
             FluentActions.Invoking(() => command.Handle())
                          .Should()
@@ -39,8 +39,12 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.DeleteBook
         [Fact]
         public void WhenValidInputIsGiven_Book_ShouldBeDeleted()
         {
+            //arrange
+
             DeleteBookCommand command = new DeleteBookCommand(_context);
             command.BookId = 3;
+
+            //act
 
             FluentActions.Invoking(() => command.Handle()).Invoke();
         }

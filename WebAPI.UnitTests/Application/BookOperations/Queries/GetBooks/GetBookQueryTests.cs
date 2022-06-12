@@ -24,7 +24,7 @@ namespace WebAPI.UnitTests.Application.BookOperations.Queries.GetBooks
         }
 
         [Fact]
-        public void WhenQueryGivenForAll_Books_ShouldBeReturnBookList()
+        public void WhenQueryGivenForAll_Authors_ShouldBeReturnAuthor()
         {
             //arrange
 

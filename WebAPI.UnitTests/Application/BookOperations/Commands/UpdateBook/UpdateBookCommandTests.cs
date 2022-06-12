@@ -42,6 +42,7 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.UpdateBook
                          .Invoke();
 
             //assert
+
             var book = _context.Books.SingleOrDefault(b => b.Title == updateBookModel.Title);
             book.Should().NotBeNull();
             book.GenreId.Should().Be(updateBookModel.GenreId);
@@ -63,6 +64,7 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.UpdateBook
             command.Model = updateBookModel;
 
             //act
+
             FluentActions.Invoking(() => command.Handle())
                          .Should()
                          .Throw<InvalidOperationException>().And.Message

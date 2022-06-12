@@ -12,12 +12,10 @@ namespace BookStore.Application.AuthorOperations.Commands.UpdateAuthor
         public int AuthorId { get; set; }
         public UpdateAuthorModel Model { get; set; }
         private readonly IBookStoreDbContext _context;
-        private readonly IMapper _mapper;
 
-        public UpdateAuthorCommand(IBookStoreDbContext context, IMapper mapper)
+        public UpdateAuthorCommand(IBookStoreDbContext context)
         {
             _context = context;
-            _mapper = mapper;
         }
 
         public void Handle()

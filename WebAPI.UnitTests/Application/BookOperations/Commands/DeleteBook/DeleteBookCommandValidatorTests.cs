@@ -15,12 +15,17 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.DeleteBook
         [Fact]
         public void WhenValidInputAreGiven_Validator_ShouldNotBeReturnErrors()
         {
+            //arrange
+
             DeleteBookCommand deleteBookCommand = new DeleteBookCommand(null);
             deleteBookCommand.BookId = 1;
+
+            //act
 
             DeleteBookCommandValidator validation = new DeleteBookCommandValidator();
             var result = validation.Validate(deleteBookCommand);
 
+            //assert
             result.Errors.Count().Should().Be(0);
         }
     }

@@ -27,7 +27,7 @@ namespace BookStore.Application.AuthorOperations.Commands.DeleteAuthor
             }
             else if (book is not null)
             {
-                throw new InvalidOperationException("Yazara ait kitap bulunmaktadır.");
+                throw new InvalidOperationException("Yazara ait kitap bulunmaktadır");
             }
 
             _context.Authors.Remove(author);

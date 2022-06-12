@@ -30,6 +30,12 @@ namespace WebAPI.UnitTests.TestSetup
                         FirstName = "Berkan",
                         LastName = "OZEL",
                         BirthDate = new DateTime(1990, 12, 21)
+                    },
+                    new Author
+                    {
+                        FirstName = "denemeyazari",
+                        LastName = "denemeyazari",
+                        BirthDate = new DateTime(1950, 09, 09)
                     }
                     );
         }

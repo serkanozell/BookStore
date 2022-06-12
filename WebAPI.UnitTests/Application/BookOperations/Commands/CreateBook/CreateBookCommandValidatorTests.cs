@@ -50,6 +50,8 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.CreateBook
         [Fact]
         public void WhenDateTimeEqualNowIsGiven_Validator_ShouldBeReturnError()
         {
+            //arrange
+
             CreateBookCommand createBookCommand = new CreateBookCommand(null, null);
             createBookCommand.Model = new CreateBookModel()
             {
@@ -59,8 +61,12 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.CreateBook
                 GenreId = 1
             };
 
+            //act
+
             CreateBookCommandValidator validation = new CreateBookCommandValidator();
             var result = validation.Validate(createBookCommand);
+
+            //assert
 
             result.Errors.Count.Should().BeGreaterThan(0);
         }
@@ -68,6 +74,8 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.CreateBook
         [Fact]
         public void WhenValidInputsAreGiven_Validator_ShouldNotBeReturnError()
         {
+            //arrange
+
             CreateBookCommand createBookCommand = new CreateBookCommand(null, null);
             createBookCommand.Model = new CreateBookModel()
             {
@@ -78,8 +86,12 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.CreateBook
                 AuthorId = 1
             };
 
+            //act
+
             CreateBookCommandValidator validation = new CreateBookCommandValidator();
             var result = validation.Validate(createBookCommand);
+
+            //assert
 
             result.Errors.Count.Should().Be(0);
         }

@@ -69,6 +69,8 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.UpdateBook
             UpdateBookCommandValidator validation = new UpdateBookCommandValidator();
             var result = validation.Validate(updateBookCommand);
 
+            //assert
+
             result.Errors.Count.Should().Be(0);
         }
     }
