@@ -29,7 +29,13 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.CreateBook
         {
             //arrange =>(Hazırlık)
 
-            var book = new Book() { Title = "WhenAlreadyExistBookTitleIsGiven_InvaliOperationException_ShouldBeReturn", PageCount = 100, PublishDate = new DateTime(1990, 01, 10), GenreId = 1 };
+            var book = new Book()
+            {
+                Title = "WhenAlreadyExistBookTitleIsGiven_InvaliOperationException_ShouldBeReturn",
+                PageCount = 100,
+                PublishDate = new DateTime(1990, 01, 10),
+                GenreId = 1
+            };
             _context.Books.Add(book);
             _context.SaveChanges();
 

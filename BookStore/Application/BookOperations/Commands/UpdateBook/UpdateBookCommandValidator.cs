@@ -17,6 +17,9 @@ namespace BookStore.Application.BookOperations.UpdateBook
             //RuleFor(command => command.Model.GenreId).IsInEnum().WithMessage("Id is not in an enum list!!!");
             RuleFor(command => command.Model.Title).NotEmpty().MinimumLength(4).WithMessage("Title can't be empty and need to has more than 4 character");
             RuleFor(command => command.Model.Title).NotNull().WithMessage("Title can't be null");
+            RuleFor(command => command.Model.AuthorId).GreaterThan(0).WithMessage("Author Id must be greater than 0");
+            RuleFor(command => command.Model.AuthorId).LessThan(5).WithMessage("Author Id must be less than 5");
+
 
         }
     }
