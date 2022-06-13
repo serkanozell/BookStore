@@ -20,6 +20,31 @@ namespace WebAPI.UnitTests.Application.AuthorOperations.Commands.DeleteAuthor
         }
 
         [Fact]
+        public void WhenValidInputIsGivenAndAuthorHasPublishedBook_Author_ShouldNotBeDeleted()
+        {
+            //arrange
+
+            DeleteAuthorCommand command = new DeleteAuthorCommand(_context);
+            command.AuthorId = 1;
+
+            //act
+
+            //FluentActions.Invoking(() => command.Handle()).Invoke();
+
+            FluentActions.Invoking(() => command.Handle())
+             .Should()
+             .Throw<InvalidOperationException>().And.Message
+             .Should()
+             .Be("Yazara ait kitap bulunmaktadır");
+
+            //FluentActions.Invoking(() => command.Handle())
+            //             .Should()
+            //             .Throw<InvalidOperationException>().And.Message
+            //             .Should()
+            //             .BeEquivalentTo("Yazara ait kitap bulunmaktadır");
+        }
+
+        [Fact]
         public void WhenAlreadyDeletedAuthorIsGiven_InvalidOperationException_ShouldBeReturn()
         {
             //arrange
@@ -35,22 +60,7 @@ namespace WebAPI.UnitTests.Application.AuthorOperations.Commands.DeleteAuthor
                          .Be("Silmeye çalıştığınız yazar zaten sistemimizde mevcut değil!!");
         }
 
-        [Fact]
-        public void WhenValidInputIsGivenAndAuthorHasPublishedBook_Author_ShouldNotBeDeleted()
-        {
-            //arrange
 
-            DeleteAuthorCommand command = new DeleteAuthorCommand(_context);
-            command.AuthorId = 1;
-
-            //act
-
-            FluentActions.Invoking(() => command.Handle())
-             .Should()
-             .Throw<InvalidOperationException>().And.Message
-             .Should()
-             .Be("Yazara ait kitap bulunmaktadır");
-        }
 
         [Fact]
         public void WhenValidInpuIsGivenAndAuthorHasNotPuslishedBook_Author_ShouldBeDeleted()

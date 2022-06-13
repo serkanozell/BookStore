@@ -8,6 +8,7 @@ using BookStore.Application.GenreOperations.Commands.CreateGenre;
 using BookStore.Application.GenreOperations.Commands.UpdateGenre;
 using BookStore.Application.GenreOperations.Queries.GetGenreDetail;
 using BookStore.Application.GenreOperations.Queries.GetGenres;
+using BookStore.Application.UserOperations.Commands.CreateUser;
 using BookStore.Entities;
 using static BookStore.Application.BookOperations.Commands.CreateBook.CreateBookCommand;
 
@@ -42,6 +43,8 @@ namespace BookStore.Common
             CreateMap<CreateAuthorModel, Author>();
             CreateMap<Author, AuthorsViewModel>();
             CreateMap<Author, AuthorDetailViewModel>();
+
+            CreateMap<CreateUserModel, User>();
         }
     }
 }

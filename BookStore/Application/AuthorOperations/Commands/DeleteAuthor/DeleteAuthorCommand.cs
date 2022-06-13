@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace BookStore.Application.AuthorOperations.Commands.DeleteAuthor
@@ -25,7 +26,7 @@ namespace BookStore.Application.AuthorOperations.Commands.DeleteAuthor
             {
                 throw new InvalidOperationException("Silmeye çalıştığınız yazar zaten sistemimizde mevcut değil!!");
             }
-            else if (book is not null)
+            if (book is not null)
             {
                 throw new InvalidOperationException("Yazara ait kitap bulunmaktadır");
             }
