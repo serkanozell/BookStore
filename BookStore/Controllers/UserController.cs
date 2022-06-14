@@ -1,9 +1,14 @@
 ﻿using AutoMapper;
 using BookStore.Application.UserOperations.Commands.CreateToken;
 using BookStore.Application.UserOperations.Commands.CreateUser;
+using BookStore.Application.UserOperations.Commands.DeleteUser;
 using BookStore.Application.UserOperations.Commands.RefreshToken;
+using BookStore.Application.UserOperations.Commands.UpdateUser;
+using BookStore.Application.UserOperations.Queries.GetUserDetail;
+using BookStore.Application.UserOperations.Queries.GetUsers;
 using BookStore.DBOperations;
 using BookStore.TokenOperations.Models;
+using FluentValidation;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 
@@ -23,14 +28,70 @@ namespace BookStore.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost]
-        public IActionResult Create([FromBody] CreateUserModel newUser)
+        [HttpGet]
+        public IActionResult GetUsers()
         {
-            CreateUserCommand command = new CreateUserCommand(_context, _mapper);
-            command.Model = newUser;
-            command.Handle();
+            GetUsersQuery query = new GetUsersQuery(_context, _mapper);
+            var result = query.Handle();
+
+            return Ok(result);
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            GetUserDetailQuery getUserDetailQuery = new GetUserDetailQuery(_context, _mapper);
+            getUserDetailQuery.UserId = id;
+
+            GetUserDetailQueryValidator validation = new GetUserDetailQueryValidator();
+            validation.ValidateAndThrow(getUserDetailQuery);
+
+            var result = getUserDetailQuery.Handle();
+
+            return Ok(result);
+        }
+
+        [HttpPost]
+        public IActionResult CreateUser([FromBody] CreateUserModel newUser)
+        {
+            CreateUserCommand createUserCommand = new CreateUserCommand(_context, _mapper);
+            createUserCommand.Model = newUser;
+
+            CreateUserCommandValidator validation = new CreateUserCommandValidator();
+            validation.ValidateAndThrow(createUserCommand);
+
+            createUserCommand.Handle();
 
             return Ok("Kullanıcı basariyla Kaydedildi");
+        }
+
+        [HttpPut]
+        public IActionResult UpdateUser(int id, [FromBody] UpdateUserModel updateUserModel)
+        {
+            UpdateUserCommand updateUserCommand = new UpdateUserCommand(_context);
+            updateUserCommand.UserId = id;
+            updateUserCommand.Model = updateUserModel;
+
+            UpdateUserCommandValidator validation = new UpdateUserCommandValidator();
+            validation.ValidateAndThrow(updateUserCommand);
+
+            updateUserCommand.Handle();
+
+            return Ok("Kullanıcı bilgileri başarıyla güncellenmiştir");
+        }
+
+        [HttpDelete]
+        public IActionResult DeleteUser(int id)
+        {
+            DeleteUserCommand deleteUserCommand = new DeleteUserCommand(_context);
+            deleteUserCommand.UserId = id;
+
+            DeleteUserCommandValidator validation = new DeleteUserCommandValidator();
+            validation.ValidateAndThrow(deleteUserCommand);
+
+            deleteUserCommand.Handle();
+
+            return Ok("Kullanıcı başarıyla silinmiştir");
         }
 
         [HttpPost("connect/token")]
