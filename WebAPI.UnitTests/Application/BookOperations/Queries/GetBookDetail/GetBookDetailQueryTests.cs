@@ -33,7 +33,7 @@ namespace WebAPI.UnitTests.Application.BookOperations.Queries.GetBookDetail
             //act
             FluentActions.Invoking(() => getBookDetailQuery.Handle()).Invoke();
 
-            var a = FluentActions.Invoking(() => getBookDetailQuery.Handle()).Invoke();
+            //var a = FluentActions.Invoking(() => getBookDetailQuery.Handle()).Invoke();
         }
 
         [Fact]

@@ -81,6 +81,36 @@ namespace BookStore.DBOperations
                       PublishDate = new DateTime(2002, 12, 21)
                   });
 
+                context.Users.AddRange(
+                  new User
+                  {
+                      FirstName = "serkan",
+                      LastName = "ozel",
+                      Email = "serkanozel@gmail.com",
+                      Password = "Serkanozelsifre!_"
+                  },
+                   new User
+                   {
+                       FirstName = "berkan",
+                       LastName = "ozel",
+                       Email = "berkannozel@gmail.com",
+                       Password = "Berkanozelsifre!_"
+                   },
+                  new User
+                  {
+                      FirstName = "gulsen",
+                      LastName = "ozel",
+                      Email = "gulsenozel@gmail.com",
+                      Password = "Gulsenozelsifre!_"
+                  },
+                  new User
+                  {
+                      FirstName = "ibrahim",
+                      LastName = "ozel",
+                      Email = "ibrahimozel@gmail.com",
+                      Password = "HalilIbrahimozelsifre!_"
+                  });
+
                 context.SaveChanges();
             }
         }

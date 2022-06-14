@@ -28,7 +28,7 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.UpdateBook
         [InlineData("silma", 6, 6, 2)]
         public void WhenInvalidInputsAreGiven_Validator_ShouldBeReturnErrors(string title, int bookId, int authorId, int genreId)
         {
-            //arrance
+            //arrange
 
             UpdateBookCommand updateBookCommand = new UpdateBookCommand(null);
             updateBookCommand.BookId = bookId;
@@ -53,7 +53,7 @@ namespace WebAPI.UnitTests.Application.BookOperations.Commands.UpdateBook
         [Fact]
         public void WhenValidInputsAreGiven_Validator_ShouldNotBeReturnError()
         {
-            //arrance
+            //arrange
 
             UpdateBookCommand updateBookCommand = new UpdateBookCommand(null);
             updateBookCommand.BookId = 1;
